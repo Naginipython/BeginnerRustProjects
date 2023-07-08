@@ -15,6 +15,16 @@ fn main() {
     let (s, len) = calc_len(u);
 
     println!("String is: \"{s}\", length of it is: {len}");
+
+    //or
+
+    let len = calc_len2(&s); //difference: sending string as a reference
+
+    println!("String is: \"{s}\", length of it is: {len}");
+
+    let h = first_word(&s, ',');
+
+    println!("{h}");
 }
 
 fn takes_ownership(string: String) {
@@ -29,4 +39,19 @@ fn returns_ownership(string: String) -> String {
 fn calc_len(string: String) -> (String, usize) {
     let len = string.len();
     (string, len)
+}
+fn calc_len2(string: &String) -> usize {
+    string.len()
+}
+
+fn first_word(s: &str, c: char) -> &str {
+    let mut count = 0;
+    for x in s.chars() {
+        if x == c {
+            return &s[..count]; //same as [0..endIndex];
+        }
+        count = count + 1;
+    }
+
+    &s[..] //same as [0..s.len()]
 }
