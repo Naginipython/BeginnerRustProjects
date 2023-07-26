@@ -61,7 +61,7 @@ fn main() {
     }
     println!("Rust's for loops are used for collections: {z}");
 
-    for num in 0..5 {
+    for _num in 0..5 {
         z += 1;
     }
     println!("Basic for loops look different for me: {z}");
