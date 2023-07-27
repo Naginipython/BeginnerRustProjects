@@ -33,10 +33,10 @@ fn main() {
     m.print(); //method test
     display(m); //function test
 
-    let some_number = Some(5);
-    let some_char = Some('e');
+    let _some_number = Some(5);
+    let _some_char = Some('e');
 
-    let absent_number: Option<i32> = None;
+    let _absent_number: Option<i32> = None;
 
     let dice_roll = 9;
     match dice_roll {
@@ -48,7 +48,7 @@ fn main() {
 
     let m = Message::Write(String::from("Test"));
 
-    if let Message::Write(String) = m {
+    if let Message::Write(_string) = m { //Changed Write(String), for rust_analyzer reasons
         println!("The message is Write");
     }
     /* same as doing this:
@@ -72,4 +72,4 @@ fn display(m: Message) {
 
 fn add_fancy_hat() { println!("added hat"); }
 fn remove_fancy_hat() { println!("removed hat"); }
-fn move_player(pos: u8) { println!("moved player"); }
+fn move_player(_pos: u8) { println!("moved player"); }

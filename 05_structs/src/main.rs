@@ -33,12 +33,16 @@ fn main() {
 
     user.email = String::from("not_naginipython@email_address.com");
 
-    let mut user2 = User {
+    println!("user: {} \nemail: {} \nactive: {} \nsign in count: {}", user.username, user.email, user.active, user.sign_in_count);
+
+    let user2 = User {
         email: String::from("different@email_address.com"),
         ..user //this copies the remaining stuff from user, into user2
     };
 
-    let black = Color(0, 0, 0);
+    println!("user: {} \nemail: {} \nactive: {} \nsign in count: {}", user2.username, user2.email, user2.active, user2.sign_in_count);
+
+    let _black = Color(0, 0, 0);
 
     let rec1 = Rectangle {
         width: 32,
