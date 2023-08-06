@@ -1,5 +1,6 @@
 use std::io;
 use rand::Rng;
+use std::collections::HashMap;
 
 use crate::continue_check::continue_check;
 
@@ -35,12 +36,62 @@ pub fn med_mode() {
 
         //Sorting list
         list.sort();
+        println!("The list generated is: {:?}", list);
 
         //getting median
+        let index: usize = (size/2).try_into().unwrap();
+        let med: Option<&i32> = list.get(index);
+        let mut out = 0;
+        let mut no_err = true;
+        
+        match med {
+                Some(n) => out = *n,
+                _ => no_err = false,
+            }
+
+        if size % 2 == 0 {
+            let med2 = list.get(index - 1);
+            let mut out2 = 0;
+
+            match med2 {
+                Some(n) => out2 = *n,
+                _ => no_err = false,
+            }
+            
+            if no_err {
+                println!("The medians are {out2} and {out}.");
+            } else {
+                println!("Error: median cannot be found.");
+            }
+        } else {
+            if no_err {
+                println!("The median is {out}.");
+            } else {
+                println!("Error: median cannot be found");
+            }
+        }
 
         //getting mode
+        let mut map = HashMap::new();
+        for n in list {
+            let count = map.entry(n).or_insert(0);
+            *count += 1;
+        }
+        //debug
+        //println!("{:?}", map);
 
-        println!("{:?}", list);
+        let mut highest = 0;
+        let mut mode = Vec::new();
+        for (key, val) in map {
+            if val > highest {
+                mode = Vec::new();
+                mode.push(key);
+                highest = val;
+            } else if val == highest {
+                mode.push(key);
+            }
+        }
+        println!("The mode(s) are: {:?}.", mode);
 
         continue_med = continue_check();
     }
