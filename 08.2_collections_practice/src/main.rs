@@ -10,10 +10,10 @@ pub mod continue_check;
 
 fn main() {
     'program_loop: loop {
-        println!("In this example, this program will do one of 3 things:\n
-        1: Generate a list of integers, and return the median and mode\n
-        2: Convert a sentance to pig latin\n
-        3: Add employees to a list, sorted\n
+        println!("In this example, this program will do one of 3 things:
+        1: Generate a list of integers, and return the median and mode
+        2: Convert a sentance to pig latin
+        3: Add employees to a list, sorted
         4: Press 4 to exit program");
         loop {
             println!("To proceed, please choose a number corresponding to the above: ");
