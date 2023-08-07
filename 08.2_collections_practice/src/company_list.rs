@@ -69,10 +69,45 @@ To use this application, please type in one of the following commands:
                     Commands::Remove => {
                         match *com {
                             "department" => {
-                                println!("remove department not implemented");
+                                if !split_command.get(2).is_none() {
+                                    let dep = split_command.get(2).unwrap();
+                                    if departments.contains(&dep.to_string()) {
+                                        let index = departments.iter().position(|x| *x == dep.to_string()).unwrap();
+                                        departments.remove(index);
+                                        println!("Department \"{dep}\" was removed");
+                                    } else {
+                                        println!("Error: department doesn't exists");
+                                    }
+                                } else {
+                                    println!("Error: None or unknown department");
+                                }
                             },
                             s => {
-                                println!("remove names not implemented. name: {s}");
+                                if employees.contains_key(&s.to_string()) {
+                                    if !split_command.get(2).is_none() {
+                                        if split_command.get(2).unwrap() == &"from" {
+                                            //employee removing
+                                            if !split_command.get(3).is_none() {
+                                                let dep = split_command.get(3).unwrap();
+                                                //check if dep exists
+                                                if departments.contains(&dep.to_string()) {
+                                                    employees.remove(&s.to_string());
+                                                    println!("Employee {s} was removed");
+                                                } else {
+                                                    println!("Error: department \"{dep}\" does not exist");
+                                                }
+                                            } else {
+                                                println!("Error: None or unknown employee");
+                                            }
+                                        } else {
+                                            println!("Error: Command not typed correctly");
+                                        }
+                                    } else {
+                                        println!("Error: Command not typed correctly");
+                                    }
+                                } else {
+                                    println!("Error: employee doesn't exists");
+                                }
                             }
                         }
                     },
@@ -109,6 +144,8 @@ To use this application, please type in one of the following commands:
                                             } else {
                                                 println!("Error: None or unknown employee");
                                             }
+                                        } else {
+                                            println!("Error: Command not typed correctly");
                                         }
                                     } else {
                                         println!("Error: Command not typed correctly");
