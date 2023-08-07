@@ -159,8 +159,26 @@ To use this application, please type in one of the following commands:
                     Commands::View => {
                         match *com {
                             "employees" => {
-                                //TODO: SORT
-                                println!("Employees: {:?}", employees);
+                                //Sort
+                                let mut emp = Vec::from_iter(employees.keys());
+                                emp.sort();
+
+                                //Set up display
+                                let mut output = String::new();
+                                let mut first = 0;
+                                output = format!("{}", output + "[");
+                                for s in emp {
+                                    if first == 0 {
+                                        output = format!("{}", output + s + ": " + employees.get(s).unwrap());
+                                        first += 1;
+                                    } else {
+                                        output = format!("{}", output + ", " + s + ": " + employees.get(s).unwrap());
+                                    }
+                                }
+                                output = format!("{}", output + "]");
+
+                                //display
+                                println!("Employees: {:?}", output);
                             },
                             "commands" => {
                                 println!("    view (commands/employees/[deparment])
@@ -171,11 +189,23 @@ To use this application, please type in one of the following commands:
     exit app");
                             },
                             "departments" => {
+                                departments.sort();
                                 println!("Departments: {:?}", departments);
                             },
                             s => {
-                                //check for if department exists, then show
-                                println!("view departments not implemented. department: {s}");
+                                //check for if department exists
+                                if departments.contains(&s.to_string()) {
+                                    //get employees
+                                    let mut e = Vec::new();
+                                    for (key, val) in &employees {
+                                        if val == s {
+                                            e.push(key);
+                                        }
+                                    }
+
+                                    //display
+                                    println!("Employees in {s}: {:?}", e);
+                                }
                             },
                         }
                     },
