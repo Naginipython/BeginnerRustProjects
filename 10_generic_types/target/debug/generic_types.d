@@ -1,0 +1,1 @@
+/home/ben/Code/Rust/BeginnerRustProjects/10_generic_types/target/debug/generic_types: /home/ben/Code/Rust/BeginnerRustProjects/10_generic_types/src/lib.rs /home/ben/Code/Rust/BeginnerRustProjects/10_generic_types/src/main.rs

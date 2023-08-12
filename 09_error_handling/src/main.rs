@@ -44,4 +44,5 @@ fn _read_username_from_file() -> Result<String, io::Error> {
     File::open("hello5.txt")?.read_to_string(&mut username)?;
 
     Ok(username)
+    //or, alternatively for this example, fs::read_to_string("hello5.txt")
 }
