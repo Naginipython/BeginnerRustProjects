@@ -12,8 +12,8 @@ fn main() {
         process::exit(1);
     });
 
-    println!("Searching for: {}", config.query);
-    println!("In file: {}", config.file_path);
+    // println!("Searching for: {}", config.query);
+    // println!("In file: {}", config.file_path);
 
     //We use 'if let' rather than 'unwrap_or_else' to check whether "run" returns an Err value and call process::exit(1) if it does
     if let Err(e) = minigrep::run(config) {
