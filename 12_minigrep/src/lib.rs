@@ -12,13 +12,29 @@ pub struct Config {
 
 impl Config {
     //"build" instead of "new" because devs don't expect new to fail
-    pub fn build(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("Not enough arguments");
-        }
-        //using clone isn't ideal, but since this is a smaller program, it's fine.
-        let query = args[1].clone();
-        let file_path = args[2].clone();
+    pub fn build(
+        mut args: impl Iterator<Item = String>,
+    ) -> Result<Config, &'static str> {
+        // OLD WAY
+        // if args.len() < 3 {
+        //     return Err("Not enough arguments");
+        // }
+        // //using clone isn't ideal, but since this is a smaller program, it's fine. [Fixed in NEW WAY]
+        // let query = args[1].clone();
+        // let file_path = args[2].clone();
+
+        //NEW WAY
+        args.next();
+
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string"),
+        };
+
+        let file_path = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a file path"),
+        };
 
         let ignore_case = env::var("IGNORED_CASE").is_ok();
 
@@ -47,15 +63,22 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 //Essentially, content is getting sliced and referenced, so content needs to still exist beyond this, maybe
 //re-read 10.3
 pub fn search<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
-    let mut results = Vec::new();
+    //OLD WAY
+    // let mut results = Vec::new();
 
-    for line in content.lines() {
-        if line.contains(query) {
-            results.push(line);
-        }
-    }
+    // for line in content.lines() {
+    //     if line.contains(query) {
+    //         results.push(line);
+    //     }
+    // }
     
-    results
+    // results
+
+    //NEW WAY
+    content
+        .lines()
+        .filter(|line| line.contains(query))
+        .collect()
 }
 
 pub fn search_case_insensitive<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
